@@ -1,36 +1,57 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
 
-function Finalizado() {
+function Finalizado({ nomeFilme, dataFilme, horaFilme, selecionados, nome, cpf, setSelecionados, idsSelecionados, setIdsSelecionados }) {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", {
+            ids: idsSelecionados,
+            name: nome,
+            cpf: cpf
+        }).then(() => (setIdsSelecionados([])))
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+
+    function voltarParaInicio() {
+        setSelecionados([])
+        navigate("/")
+    }
+
     return (
         <Pedido>
             <h1>Pedido finalizado!</h1>
             <Detalhes>
-                <Sessao>
+                <div>
                     <h2>Filme e sessão</h2>
                     <Line />
                     <h3>
-                        Filme<br />
-                        data às hora
+                        {nomeFilme}<br />
+                        {dataFilme} às {horaFilme}
                     </h3>
-                </Sessao>
-                <Ingressos>
+                </div>
+                <div>
                     <h2>Ingressos</h2>
                     <Line />
                     <h3>
-                        Assento x<br />
-                        Assento x
+                        {selecionados.map(selecionado => (
+                            <p key={selecionado}>Assento {selecionado}</p>
+                        ))}
                     </h3>
-                </Ingressos>
+                </div>
                 <Comprador>
                     <h2>Comprador(a)</h2>
                     <Line />
                     <h3>
-                        Nome:nome<br />
-                        CPF:cpf
+                        Nome: {nome}<br />
+                        CPF: {cpf}
                     </h3>
                 </Comprador>
             </Detalhes>
-            <Inicio>Voltar para tela incial</Inicio>
+            <Inicio onClick={voltarParaInicio}>Voltar para tela incial</Inicio>
         </Pedido>
     )
 }
@@ -63,7 +84,7 @@ h2{
     font-size: 22px;
     font-weight: 700;
 }
-h3{
+h3, p{
     font-size: 20px;
     font-weight: 400;
     color: #FFFFFF;
@@ -78,22 +99,17 @@ border-radius: 8px;
 display: flex;
 flex-direction: column;
 align-items: center;
+div{
+    width: 90%;
+    margin-top: 9px;
+}
 `
 const Line = styled.div`
 border-bottom: 1px solid #4E5A65;
 width: 100%;
-`
-const Sessao = styled.div`
-    width: 90%;
-    margin-top: 9px;
-`
-const Ingressos = styled.div`
-width: 90%;
-    margin-top: 9px;
+margin: 0;
 `
 const Comprador = styled.div`
-width: 90%;
-    margin-top: 9px;
     margin-bottom: 12px;
 `
 const Inicio = styled.button`

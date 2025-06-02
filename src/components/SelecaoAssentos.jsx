@@ -1,63 +1,30 @@
 import styled from "styled-components";
+import { useParams, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Assento from "./Assento";
 
-function SelecaoAssento() {
+
+function SelecaoAssento({ selecionados, setSelecionados, idsSelecionados, setIdsSelecionados, setNome, setCpf }) {
+    const [assentos, setAssentos] = useState([])
+    const { idSessao } = useParams();
+
+    useEffect(() => {
+        axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`)
+            .then(resposta => {
+                setAssentos(resposta.data.seats);
+            });
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <Assentos>
             <h1>Selecione o(s) assento(s)</h1>
             <Selecao>
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>4</button>
-                <button>5</button>
-                <button>6</button>
-                <button>7</button>
-                <button>8</button>
-                <button>9</button>
-                <button>10</button>
-                <button>11</button>
-                <button>12</button>
-                <button>13</button>
-                <button>14</button>
-                <button>15</button>
-                <button>16</button>
-                <button>17</button>
-                <button>18</button>
-                <button>19</button>
-                <button>20</button>
-                <button>21</button>
-                <button>22</button>
-                <button>23</button>
-                <button>24</button>
-                <button>25</button>
-                <button>26</button>
-                <button>27</button>
-                <button>28</button>
-                <button>29</button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
+                {assentos.map(assento => <Assento idAssento={assento.id} isAvailable={assento.isAvailable} name={assento.name} selecionados={selecionados} setSelecionados={setSelecionados} idsSelecionados={idsSelecionados} setIdsSelecionados={setIdsSelecionados} key={`a${assento.id}`} />)}
             </Selecao>
             <Line />
-            <form>
+            <Inputs>
                 <InputGroup>
                     <Title>Nome do comprador(a)</Title>
                     <input
@@ -65,6 +32,7 @@ function SelecaoAssento() {
                         required
                         type="text"
                         placeholder="Digite seu nome..."
+                        onChange={e => setNome(e.target.value)}
                     />
                 </InputGroup>
                 <InputGroup>
@@ -74,10 +42,11 @@ function SelecaoAssento() {
                         required
                         type="text"
                         placeholder="Digite seu CPF..."
+                        onChange={e => setCpf(e.target.value)}
                     />
                 </InputGroup>
-                <SubmitButton>Reservar assento(s)</SubmitButton>
-            </form>
+                <SubmitButton to={`/sucesso`}>Reservar assento(s)</SubmitButton>
+            </Inputs>
         </Assentos>
     )
 }
@@ -101,30 +70,21 @@ h1{
     font-size: 24px;
     font-weight: 400;
 }
-form{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+`
+const Inputs = styled.div`
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
 `
 
 const Selecao = styled.div`
 width: 90%;
+max-width: 350px;
 height: 205px;
 display: flex;
 flex-wrap: wrap;
 gap: 7px;
-button{
-    width: 26px;
-    height: 26px;
-    border-radius: 100%;
-    color: #2B2D36;
-    font-family: 'Roboto';
-    font-size: 11px;
-    font-weight: 400;
-    background-color: #9DB899;
-}
 `
 const Line = styled.div`
 margin: 35px 0 25px;
@@ -137,10 +97,17 @@ display: flex;
 flex-direction: column;
 width: 90%;
 input{
+    padding: 0 15px;
     width: 100%;
     height: 40px;
     border-radius: 8px;
     margin-bottom: 12px;
+    font-family: 'Roboto';
+    font-size: 16px;
+    font-weight: 400;
+    &::placeholder{
+        font-style: italic;
+    }
 }
 `
 
@@ -150,7 +117,10 @@ font-weight: 400;
 font-size: 16px;
 `
 
-const SubmitButton = styled.button`
+const SubmitButton = styled(Link)`
+display: flex;
+justify-content: center;
+align-items: center;
 width: 90%;
 height: 42px;
 margin-top: 24px;
@@ -160,4 +130,5 @@ color: #2B2D36;
 font-family: 'Sarala';
 font-size: 18px;
 font-weight: 700;
+text-decoration: none;
 `

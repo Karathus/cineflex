@@ -1,19 +1,23 @@
 import styled from "styled-components";
 import Filme from "./Filme";
-import test from "../assets/test.jpg"
+import axios from "axios";
+import { useState, useEffect } from "react";
 
-function ListaFilmes() {
+function ListaFilmes({setNomeFilme}) {
+    const [filmes, setFilmes] = useState([]);
+
+    useEffect(() => {
+        axios.get("https://mock-api.driven.com.br/api/v8/cineflex/movies")
+            .then(resposta => {
+                setFilmes(resposta.data)
+            });
+        }, []);
+
     return (
         <Cartaz>
             <h1>Em Cartaz</h1>
             <Filmes>
-                <img src={test} />
-                <img src={test} />
-                <img src={test} />
-                <img src={test} />
-                <img src={test} />
-                <img src={test} />
-                <img src={test} />
+                {filmes.map(filme => <Filme idFilme={filme.id} title={filme.title} posterURL={filme.posterURL} setNomeFilme={setNomeFilme} key={filme.id} />)}
             </Filmes>
         </Cartaz>
     )
