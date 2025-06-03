@@ -10,6 +10,11 @@ function Assento({ idAssento, isAvailable, name, selecionados, setSelecionados, 
             setIdsSelecionados([...idsSelecionados, idAssento])
             setSelected(true)
         }
+        else if (selected) {
+            setSelecionados(prev => prev.filter(nome => nome !== name));
+            setIdsSelecionados(prev => prev.filter(id => id !== idAssento));
+            setSelected(false);
+        }
         else if (!isAvailable) {
             alert("O assento não está disponível");
         }

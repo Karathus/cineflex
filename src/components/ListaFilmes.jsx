@@ -3,7 +3,7 @@ import Filme from "./Filme";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-function ListaFilmes({setNomeFilme}) {
+function ListaFilmes({ setNomeFilme }) {
     const [filmes, setFilmes] = useState([]);
 
     useEffect(() => {
@@ -11,7 +11,7 @@ function ListaFilmes({setNomeFilme}) {
             .then(resposta => {
                 setFilmes(resposta.data)
             });
-        }, []);
+    }, []);
 
     return (
         <Cartaz>

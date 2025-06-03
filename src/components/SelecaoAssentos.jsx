@@ -3,11 +3,13 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Assento from "./Assento";
+import { useNavigate } from "react-router-dom";
 
 
-function SelecaoAssento({ selecionados, setSelecionados, idsSelecionados, setIdsSelecionados, setNome, setCpf }) {
+function SelecaoAssento({ selecionados, setSelecionados, idsSelecionados, setIdsSelecionados, nome, setNome, cpf, setCpf }) {
     const [assentos, setAssentos] = useState([])
     const { idSessao } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`)
@@ -17,16 +19,32 @@ function SelecaoAssento({ selecionados, setSelecionados, idsSelecionados, setIds
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    function enviarFormulario() {
+        event.preventDefault();
+
+        if (selecionados.length > 0) {
+            axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", {
+                ids: idsSelecionados,
+                name: nome,
+                cpf: cpf
+            }).then(() => navigate("/sucesso"))
+        }
+        else {
+            alert("Você precisa selecionar pelo menos um assento para prosseguir.")
+        }
+
+    }
+
     return (
         <Assentos>
             <h1>Selecione o(s) assento(s)</h1>
             <Selecao>
-                {assentos.map(assento => <Assento idAssento={assento.id} isAvailable={assento.isAvailable} name={assento.name} selecionados={selecionados} setSelecionados={setSelecionados} idsSelecionados={idsSelecionados} setIdsSelecionados={setIdsSelecionados} key={`a${assento.id}`} />)}
+                {assentos.map(assento => <Assento idAssento={assento.id} isAvailable={assento.isAvailable} name={assento.name} selecionados={selecionados} setSelecionados={setSelecionados} idsSelecionados={idsSelecionados} setIdsSelecionados={setIdsSelecionados} key={`${assento.id}`} />)}
             </Selecao>
             <Line />
-            <Inputs>
+            <form onSubmit={enviarFormulario}>
                 <InputGroup>
-                    <Title>Nome do comprador(a)</Title>
+                    <Title for="name" >Nome do comprador(a)</Title>
                     <input
                         id="name"
                         required
@@ -36,7 +54,7 @@ function SelecaoAssento({ selecionados, setSelecionados, idsSelecionados, setIds
                     />
                 </InputGroup>
                 <InputGroup>
-                    <Title>CPF do comprador(a)</Title>
+                    <Title for="cpf" >CPF do comprador(a)</Title>
                     <input
                         id="cpf"
                         required
@@ -45,8 +63,8 @@ function SelecaoAssento({ selecionados, setSelecionados, idsSelecionados, setIds
                         onChange={e => setCpf(e.target.value)}
                     />
                 </InputGroup>
-                <SubmitButton to={`/sucesso`}>Reservar assento(s)</SubmitButton>
-            </Inputs>
+                <SubmitButton type="submit">Reservar assento(s)</SubmitButton>
+            </form>
         </Assentos>
     )
 }
@@ -70,12 +88,12 @@ h1{
     font-size: 24px;
     font-weight: 400;
 }
-`
-const Inputs = styled.div`
-width: 100%;
-display: flex;
-flex-direction: column;
-align-items: center;
+form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 `
 
 const Selecao = styled.div`
@@ -117,10 +135,7 @@ font-weight: 400;
 font-size: 16px;
 `
 
-const SubmitButton = styled(Link)`
-display: flex;
-justify-content: center;
-align-items: center;
+const SubmitButton = styled.button`
 width: 90%;
 height: 42px;
 margin-top: 24px;
@@ -130,5 +145,4 @@ color: #2B2D36;
 font-family: 'Sarala';
 font-size: 18px;
 font-weight: 700;
-text-decoration: none;
 `

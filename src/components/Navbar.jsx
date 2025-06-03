@@ -2,7 +2,7 @@ import styled from "styled-components";
 import logo from "../assets/cineflix.png"
 
 function Navbar() {
-    return(
+    return (
         <Cabecalho>
             <img src={logo} />
             Cineflex

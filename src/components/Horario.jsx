@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 function Horario({ idFilme, idSessao, weekday, date, showtimes, setDataFilme, setHoraFilme }) {
-    function selecionaDataHora(time){
+    function selecionaDataHora(time) {
         setHoraFilme(time.name);
         setDataFilme(date);
     }

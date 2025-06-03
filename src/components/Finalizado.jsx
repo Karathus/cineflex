@@ -1,24 +1,11 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
 
-function Finalizado({ nomeFilme, dataFilme, horaFilme, selecionados, nome, cpf, setSelecionados, idsSelecionados, setIdsSelecionados }) {
-    const navigate = useNavigate();
+function Finalizado({ nomeFilme, dataFilme, horaFilme, selecionados, nome, cpf, setSelecionados, setIdsSelecionados }) {
 
-    useEffect(() => {
-        axios.post("https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many", {
-            ids: idsSelecionados,
-            name: nome,
-            cpf: cpf
-        }).then(() => (setIdsSelecionados([])))
-        //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-
-    function voltarParaInicio() {
+    function resetarSelecionados() {
+        setIdsSelecionados([]);
         setSelecionados([])
-        navigate("/")
     }
 
     return (
@@ -51,7 +38,7 @@ function Finalizado({ nomeFilme, dataFilme, horaFilme, selecionados, nome, cpf, 
                     </h3>
                 </Comprador>
             </Detalhes>
-            <Inicio onClick={voltarParaInicio}>Voltar para tela incial</Inicio>
+            <Inicio to={"/"} onClick={resetarSelecionados}>Voltar para tela incial</Inicio>
         </Pedido>
     )
 }
@@ -112,7 +99,10 @@ margin: 0;
 const Comprador = styled.div`
     margin-bottom: 12px;
 `
-const Inicio = styled.button`
+const Inicio = styled(Link)`
+display: flex;
+align-items: center;
+justify-content: center;
 margin-top: 22px;
 background-color: #EE897F;
 width: 90%;
@@ -121,4 +111,6 @@ border-radius: 8px;
 font-family: 'Sarala';
 font-size: 18px;
 font-weight: 700;
+text-decoration: none;
+color: #2B2D36;
 `
