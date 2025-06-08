@@ -42,7 +42,7 @@ Você pode acessar a aplicação em produção através do seguinte link:
 
 ## 📊 Diagrama de Componentes
 
-[Link para o diagrama de Componentes](https://app.diagrams.net/?src=about#G16bPS5Z00v3vKVwkaR0gZi3a9mmbI3JwW#%7B"pageId"%3A"9z2iDsd3rVStiXDRGy_9"%7D)
+![Link para o diagrama de Componentes](diagram-image.png)
 
 ## 🛠️ Como Executar o Projeto Localmente
 
