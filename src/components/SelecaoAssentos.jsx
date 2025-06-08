@@ -120,6 +120,7 @@ input{
     width: 100%;
     height: 40px;
     border-radius: 8px;
+    border: 1px solid #D4D4D4;
     margin: 5px 0 12px -2px;
     font-family: 'Roboto';
     font-size: 16px;
