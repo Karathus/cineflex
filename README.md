@@ -38,7 +38,7 @@ O CineFlex permite que os usuários realizem o processo de reserva de assentos d
 ## 🌐 Deploy
 
 Você pode acessar a aplicação em produção através do seguinte link:
-[Link do Deploy no Vercel](https://cineflex-xi-sand.vercel.app)
+[Cineflex](https://cineflex-xi-sand.vercel.app)
 
 ## 📊 Diagrama de Componentes
 
