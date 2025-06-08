@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-function Horario({ idFilme, idSessao, weekday, date, showtimes, setDataFilme, setHoraFilme }) {
+function Horario({ weekday, date, showtimes, setDataFilme, setHoraFilme }) {
     function selecionaDataHora(time) {
         setHoraFilme(time.name);
         setDataFilme(date);
@@ -12,7 +12,7 @@ function Horario({ idFilme, idSessao, weekday, date, showtimes, setDataFilme, se
             <h2>{weekday}, {date}</h2>
             <Line />
             <Sessoes>
-                {showtimes.map(time => <Tempo to={`/assentos/${time.id}`} onClick={() => selecionaDataHora(time)} key={`${idFilme}${idSessao}${time.id}}`}>{time.name}</Tempo>)}
+                {showtimes.map(time => <Tempo to={`/assentos/${time.id}`} onClick={() => selecionaDataHora(time)} key={`${time.id}}`}>{time.name}</Tempo>)}
             </Sessoes>
         </Selecao>
     )

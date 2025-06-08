@@ -19,7 +19,7 @@ function SelecaoHorario({ setDataFilme, setHoraFilme }) {
     return (
         <Horarios>
             <h1>Selecione o horário</h1>
-            {sessoes.map(sessao => <Horario idFilme={idFilme} idSessao={sessao.id} weekday={sessao.weekday} date={sessao.date} showtimes={sessao.showtimes} setDataFilme={setDataFilme} setHoraFilme={setHoraFilme} key={sessao.id} />)}
+            {sessoes.map(sessao => <Horario weekday={sessao.weekday} date={sessao.date} showtimes={sessao.showtimes} setDataFilme={setDataFilme} setHoraFilme={setHoraFilme} key={sessao.id} />)}
         </Horarios>
     )
 }

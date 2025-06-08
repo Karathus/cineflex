@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Assento from "./Assento";
-import { useNavigate } from "react-router-dom";
 
 
 function SelecaoAssento({ selecionados, setSelecionados, idsSelecionados, setIdsSelecionados, nome, setNome, cpf, setCpf }) {
@@ -39,7 +38,7 @@ function SelecaoAssento({ selecionados, setSelecionados, idsSelecionados, setIds
         <Assentos>
             <h1>Selecione o(s) assento(s)</h1>
             <Selecao>
-                {assentos.map(assento => <Assento idAssento={assento.id} isAvailable={assento.isAvailable} name={assento.name} selecionados={selecionados} setSelecionados={setSelecionados} idsSelecionados={idsSelecionados} setIdsSelecionados={setIdsSelecionados} key={`${assento.id}`} />)}
+                {assentos.map(assento => <Assento idAssento={assento.id} isAvailable={assento.isAvailable} name={assento.name} selecionados={selecionados} setSelecionados={setSelecionados} idsSelecionados={idsSelecionados} setIdsSelecionados={setIdsSelecionados} key={assento.id} />)}
             </Selecao>
             <Line />
             <form onSubmit={enviarFormulario}>
