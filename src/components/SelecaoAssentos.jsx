@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Assento from "./Assento";
@@ -44,7 +44,7 @@ function SelecaoAssento({ selecionados, setSelecionados, idsSelecionados, setIds
             <Line />
             <form onSubmit={enviarFormulario}>
                 <InputGroup>
-                    <Title for="name" >Nome do comprador(a)</Title>
+                    <label htmlFor="name" >Nome do comprador(a)</label>
                     <input
                         id="name"
                         required
@@ -54,7 +54,7 @@ function SelecaoAssento({ selecionados, setSelecionados, idsSelecionados, setIds
                     />
                 </InputGroup>
                 <InputGroup>
-                    <Title for="cpf" >CPF do comprador(a)</Title>
+                    <label htmlFor="cpf" >CPF do comprador(a)</label>
                     <input
                         id="cpf"
                         required
@@ -101,6 +101,7 @@ width: 90%;
 max-width: 350px;
 height: 205px;
 display: flex;
+justify-content: center;
 flex-wrap: wrap;
 gap: 7px;
 `
@@ -119,20 +120,15 @@ input{
     width: 100%;
     height: 40px;
     border-radius: 8px;
-    margin-bottom: 12px;
+    margin: 5px 0 12px -2px;
     font-family: 'Roboto';
     font-size: 16px;
     font-weight: 400;
     &::placeholder{
         font-style: italic;
+        color: #AFAFAF;
     }
 }
-`
-
-const Title = styled.label`
-font-family: Sarala;
-font-weight: 400;
-font-size: 16px;
 `
 
 const SubmitButton = styled.button`

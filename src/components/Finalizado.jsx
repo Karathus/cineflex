@@ -29,14 +29,14 @@ function Finalizado({ nomeFilme, dataFilme, horaFilme, selecionados, nome, cpf, 
                         ))}
                     </h3>
                 </div>
-                <Comprador>
+                <div>
                     <h2>Comprador(a)</h2>
                     <Line />
                     <h3>
                         Nome: {nome}<br />
                         CPF: {cpf}
                     </h3>
-                </Comprador>
+                </div>
             </Detalhes>
             <Inicio to={"/"} onClick={resetarSelecionados}>Voltar para tela incial</Inicio>
         </Pedido>
@@ -50,7 +50,6 @@ min-height: calc(100vh - 67px);
 margin-top: 67px;
 width: 100%;
 background-color: #212226;
-color: #9DB899;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -60,6 +59,7 @@ h1{
     min-height: 78px;
     display: flex;
     align-items: center;
+    color: #9DB899;
     font-size: 24px;
     font-weight: 400;
 }
@@ -70,12 +70,14 @@ h2{
     color: #EE897F;
     font-size: 22px;
     font-weight: 700;
+    margin-left: 3%;
 }
-h3, p{
+h3{
     font-size: 20px;
     font-weight: 400;
     color: #FFFFFF;
     margin-top: 15px;
+    margin-left: 3%;
 }
 `
 const Detalhes = styled.div`
@@ -86,18 +88,15 @@ border-radius: 8px;
 display: flex;
 flex-direction: column;
 align-items: center;
+padding-bottom: 12px;
 div{
-    width: 90%;
+    width: 95%;
     margin-top: 9px;
 }
 `
 const Line = styled.div`
 border-bottom: 1px solid #4E5A65;
-width: 100%;
-margin: 0;
-`
-const Comprador = styled.div`
-    margin-bottom: 12px;
+justify-self: center;
 `
 const Inicio = styled(Link)`
 display: flex;

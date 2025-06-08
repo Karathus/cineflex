@@ -29,5 +29,6 @@ font-family: 'Raleway';
 img{
     height: 40px;
     width: 40px;
+    margin-bottom: 10px;
 }
 `

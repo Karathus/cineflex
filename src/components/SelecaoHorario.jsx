@@ -50,5 +50,6 @@ h2{
     align-items: center;
     font-size: 20px;
     font-weight: 400;
+    padding-left: 7%;
 }
 `
